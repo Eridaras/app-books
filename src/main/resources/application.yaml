@@ -1,0 +1,16 @@
+tracing:
+  service: jdbc-db
+
+db:
+  source: jdbc
+  connection:
+    url: jdbc:postgresql://127.0.0.1:5432/distribuida
+    username: postgres
+    password: admin123
+    poolName: postgresqlPool
+  statements:
+    # required ping statement
+    ping: "DO 0"
+    # SQL to persona
+    select-books : "select * from books;"
+    select-id : "select * from books where id= ?;"
