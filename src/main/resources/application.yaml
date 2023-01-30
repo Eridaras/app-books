@@ -6,7 +6,7 @@ db:
   connection:
     url: jdbc:postgresql://127.0.0.1:5432/distribuida
     username: postgres
-    password: admin123
+    password: 1234
     poolName: postgresqlPool
   statements:
     # required ping statement

@@ -14,6 +14,26 @@ import javax.sql.DataSource;
 @ApplicationScoped
 public class ManejadorBD {
 
+    @Inject
+    @ConfigProperty(name = "db.user")
+    private String dbUser;
+    @Inject
+    @ConfigProperty(name = "db.password")
+    private String dbPassword;
+    @Inject
+    @ConfigProperty(name = "db.url")
+    private String dbUrl;
+
+    @Produces
+    @ApplicationScoped
+    public DataSource dataSource() {
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl(dbUrl);
+        config.setUsername(dbUser);
+        config.setPassword(dbPassword);
+        HikariDataSource dataSource = new HikariDataSource(config);
+        return dataSource;
+    }
     @Produces
     @ApplicationScoped
     public DbClient db() {

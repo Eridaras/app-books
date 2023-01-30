@@ -8,6 +8,7 @@ import io.helidon.dbclient.DbClient;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -28,8 +29,8 @@ public class ServicioBookImpl implements ServicioBook {
                                 b.setId(item.column("id").as(Integer.class));
                                 b.setIsbn(item.column("isbn").as(String.class));
                                 b.setTitle(item.column("title").as(String.class));
-                                b.setAuthor_id(item.column("author_id").as(String.class));
-                                b.setPrice(item.column("price").as(Double.class));
+                                b.setAuthor_id(item.column("author_id").as(Integer.class));
+                                b.setPrice(item.column("price").as(BigDecimal.class));
                                 return b;
             }));
             Single<List<Book>> books = listBooks.collectList();
@@ -52,8 +53,8 @@ public class ServicioBookImpl implements ServicioBook {
                             b.setId(item.column("id").as(Integer.class));
                             b.setIsbn(item.column("isbn").as(String.class));
                             b.setTitle(item.column("title").as(String.class));
-                            b.setAuthor_id(item.column("author_id").as(String.class));
-                            b.setPrice(item.column("price").as(Double.class));
+                            b.setAuthor_id(item.column("author_id").as(Integer.class));
+                            b.setPrice(item.column("price").as(BigDecimal.class));
                             return b;
                         }));
         Single<List<Book>> listbooks = rows.collectList();
