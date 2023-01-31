@@ -2,15 +2,22 @@ version: '3'
 services:
   app-books:
     image: jaimesalvador/app-books:1.0.0
-    environment:
-      DB_USER: postgres
-      DB_PASSWORD: postgres
-      DB_URL: jdbc:postgresql://postgres-sql/distribuida
-    depends_on:
-      - postgres
-    deploy:
-      replicas: 3
     ports:
       - 7001:7001
       - 7002:7001
       - 7003:7001
+    environment:
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_URL: jdbc:postgresql://postgres-sql/distribuida
+    deploy:
+      replicas: 3
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=7001"
+      - "traefik.frontend.rule=Host:app-books.localhost"
+
+networks:
+  default:
+    external:
+      name: traefik_public
