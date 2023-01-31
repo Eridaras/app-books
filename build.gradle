@@ -41,6 +41,15 @@ flyway {
     schemas = ['public']
 }
 
+jar {
+    archiveFileName = "${project.name}.jar"
+    manifest {
+        attributes ('Main-Class': "${project.mainClass}" ,
+                'Class-Path': configurations.runtimeClasspath.files.collect { "libs/$it.name" }.join(' ')
+        )
+    }
+}
+
 application{
     mainClassName='com.distribuida.AppMain'
 }
