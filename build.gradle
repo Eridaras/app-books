@@ -13,6 +13,8 @@ repositories {
 
 ext {
     helidonversion='3.1.0'
+
+    mainClass='io.helidon.microprofile.cdi.Main'
 }
 dependencies {
     implementation platform("io.helidon:helidon-dependencies:${project.helidonversion}")
@@ -37,15 +39,26 @@ dependencies {
 flyway {
     url = 'jdbc:postgresql://localhost:5432/distribuida'
     user = 'postgres'
-    password = '1234'
+    password = 'admin123'
     schemas = ['public']
 }
 
-task copyLibs(type: Copy) {
-    from configurations.runtimeClasspath
-    into 'build/libs/libs'
+
+sourceSets{
+    main{
+        output.resourcesDir = file("${buildDir}/classes/java/main")
+    }
 }
 
+task copyLibs(type: Copy) {
+  from configurations.runtimeClasspath
+  into 'build/libs/libs'
+}
+
+
+// default jar configuration
+// set the main classpath
+// add each jar under build/libs/libs into the classpath
 jar {
     archiveFileName = "${project.name}.jar"
     manifest {
@@ -55,12 +68,7 @@ jar {
     }
 }
 
-application{
-    mainClassName='com.distribuida.AppMain'
+application {
+    mainClass = "${project.mainClass}"
 }
 
-sourceSets{
-    main{
-        output.resourcesDir=file("${buildDir}/classes/java/main")
-    }
-}

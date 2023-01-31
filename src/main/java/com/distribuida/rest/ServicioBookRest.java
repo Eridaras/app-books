@@ -29,11 +29,22 @@ public class ServicioBookRest{
         }
         return obj;
     }
+    @GET
+    @Path("author/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Book> findAuhor(@PathParam("id") Integer id){
+        List<Book> obj = servicio.findAuthor(id);
+        if(obj==null){
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
+        return obj;
+    }
 
     //Listar a todos
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Book> findAll(){
+
         return servicio.findAll();
     }
 
@@ -55,6 +66,7 @@ public class ServicioBookRest{
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response update(@PathParam("id") Integer id, Book obj) throws SQLException{
+        System.out.println("Servicio Update usado"  + obj +" - "+ id );
         servicio.update(id, obj);
         return Response.status(Response.Status.OK).build();
     }

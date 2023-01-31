@@ -11,5 +11,6 @@ public interface ServicioBook {
     public List<Book> findAll();
     public boolean delete(Integer id) throws SQLException;
     public  boolean update(Integer id, Book obj) throws SQLException;
+    public List<Book> findAuthor(Integer id);
 
 }

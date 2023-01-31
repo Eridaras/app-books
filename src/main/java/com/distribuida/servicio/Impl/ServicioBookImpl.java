@@ -42,6 +42,29 @@ public class ServicioBookImpl implements ServicioBook {
         }
         return book;
     }
+    public List<Book> findAuthor(Integer id){
+        Multi<Book> rows = dbClient
+                .execute(exec -> exec
+                        .namedQuery("select-author",id)
+                        .map(item -> {
+                            Book b = new Book();
+                            b.setId(item.column("id").as(Integer.class));
+                            b.setIsbn(item.column("isbn").as(String.class));
+                            b.setTitle(item.column("title").as(String.class));
+                            b.setAuthor_id(item.column("author_id").as(Integer.class));
+                            b.setPrice(item.column("price").as(BigDecimal.class));
+                            return b;
+                        }));
+        Single<List<Book>> listbooks = rows.collectList();
+        try {
+            List<Book> books = listbooks.get();
+            return books;
+        }catch (ExecutionException | InterruptedException e  ){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     //listar todos los libros
     public List<Book> findAll(){
@@ -72,6 +95,7 @@ public class ServicioBookImpl implements ServicioBook {
         dbClient.execute(exec->exec
                 .createInsert("INSERT INTO books (isbn,title, author_id, price) VALUES('"+obj.getIsbn()+"','"+obj.getTitle()+"',"+obj.getAuthor_id()+","+obj.getPrice()+");")
                         .execute()).thenAccept(count-> System.out.printf("Creado ",count));
+
     }
 
 
