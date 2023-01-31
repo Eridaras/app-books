@@ -1,7 +1,7 @@
 version: '3'
 services:
   app-books:
-    image: jaimesalvador/app-books:1.0.0
+    image: eridaras/app-books:1.0.0
     ports:
       - 7001:7001
       - 7002:7001
