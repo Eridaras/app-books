@@ -9,7 +9,7 @@ services:
     environment:
       DB_USER: postgres
       DB_PASSWORD: postgres
-      DB_URL: jdbc:postgresql://postgres-sql/distribuida
+      DB_URL: jdbc:postgresql://eridaras/distribuida
     deploy:
       replicas: 3
     labels:
