@@ -1,0 +1,16 @@
+version: '3.5'
+services:
+  app-books:
+    image: jaimesalvador/app-books:1.0.0
+    environment:
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_URL: jdbc:postgresql://postgres-sql/distribuida
+    depends_on:
+      - postgres
+    deploy:
+      replicas: 3
+    ports:
+      - 7001:7001
+      - 7002:7001
+      - 7003:7001
