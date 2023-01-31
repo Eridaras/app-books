@@ -41,6 +41,11 @@ flyway {
     schemas = ['public']
 }
 
+task copyLibs(type: Copy) {
+    from configurations.runtimeClasspath
+    into 'build/libs/libs'
+}
+
 jar {
     archiveFileName = "${project.name}.jar"
     manifest {
